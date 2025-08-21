@@ -1,0 +1,40 @@
+:root {
+  --card: #0b1220;
+  --muted: #9aa4b2;
+}
+
+.in {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 0.6rem;
+}
+
+.card {
+  background: #0b1220;
+  border: 1px solid #1e293b;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.btn {
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.6rem;
+  background: #1e293b;
+}
+
+.btn-primary {
+  padding: 0.6rem 1rem;
+  border-radius: 0.7rem;
+  background: #4f46e5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
