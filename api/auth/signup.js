@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt-es';
 import { readJSON, writeJSON } from '../_lib/storage.js';
 import { id, json, bad } from '../_lib/utils.js';
 
@@ -18,7 +18,7 @@ export default async function handler(req) {
   if (users.find(u => u.email === email)) return bad(null, 'Email already exists', 409);
 
   // Hash the password
-  const hash = bcrypt.hashSync(password, 10);
+  const hash = await bcrypt.hash(password, 10);
 
   // Create new user
   const user = {
