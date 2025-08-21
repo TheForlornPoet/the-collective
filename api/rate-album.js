@@ -1,15 +1,38 @@
+// api/albumRatings.js
 import { readJSON, writeJSON } from './_lib/storage.js';
-import { verifyTokenFromCookies } from './_lib/auth.js';
+import { jwtVerify } from 'jose';
 import { id } from './_lib/utils.js';
 
 export const config = { runtime: 'edge' };
+
+const JWT_SECRET = new TextEncoder().encode(
+  process.env.JWT_SECRET || 'dev_secret_change_me'
+);
+
+function getTokenFromCookies(req) {
+  const cookie = req.headers.get('cookie') || '';
+  const match = cookie.match(/tc_auth=([^;]+)/);
+  if (!match) return null;
+  return decodeURIComponent(match[1]);
+}
+
+async function verifyTokenFromCookies(req) {
+  const token = getTokenFromCookies(req);
+  if (!token) return null;
+  try {
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+    return payload;
+  } catch {
+    return null;
+  }
+}
 
 export default async function handler(req) {
   if (req.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
   }
 
-  const user = verifyTokenFromCookies(req);
+  const user = await verifyTokenFromCookies(req);
   if (!user) {
     return new Response(
       JSON.stringify({ error: 'Not authenticated' }),
