@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Collective — Music Encyclopedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-[Inter]">
+  <header class="sticky top-0 z-50 backdrop-blur bg-slate-900/70 border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
+      <img src="/assets/logo.svg" alt="logo" class="w-8 h-8" onerror="this.style.display='none'"> <a href="#/" class="text-xl font-extrabold tracking-tight">The Collective</a>
+      <nav class="ml-auto flex items-center gap-4">
+        <a href="#/" class="hover:text-indigo-300">Home</a> <a href="#/artists" class="hover:text-indigo-300">Artists</a> <a href="#/videos" class="hover:text-indigo-300">Videos</a> <a href="#/admin" id="nav-admin" class="hidden hover:text-indigo-300">Admin</a> <a href="#/auth" id="nav-auth" class="hover:text-indigo-300">Login</a> <button id="btn-logout" class="hidden text-sm px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700">Logout</button>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-6xl mx-auto px-4 py-6 space-y-10">
+    <section id="view-home">
+      <h1 class="text-2xl font-bold mb-3">Welcome to The Collective</h1>
+      <div id="home-latest" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+    <section id="view-artists" class="hidden">
+      <h2 class="text-xl font-semibold mb-3">Artists</h2><input id="artist-search" class="in mb-3" placeholder="Search artists...">
+      <div id="artists-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+    <section id="view-artist" class="hidden">
+      <div id="artist-detail"></div>
+    </section>
+    <section id="view-album" class="hidden">
+      <div id="album-detail"></div>
+    </section>
+    <section id="view-track" class="hidden">
+      <div id="track-detail"></div>
+    </section>
+    <section id="view-videos" class="hidden">
+      <div id="videos-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+    <section id="view-admin" class="hidden">
+      <h2 class="text-xl font-semibold mb-3">Admin</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="font-semibold mb-2">Add Artist</h3><input id="a-name" class="in mb-2" placeholder="Name"> <input id="a-genres" class="in mb-2" placeholder="Genres (comma)"> 
+          <textarea id="a-bio" class="in mb-2" placeholder="Short bio"></textarea> <button id="btn-add-artist" class="btn-primary">Add Artist</button>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold mb-2">Add Album</h3><input id="al-artistId" class="in mb-2" placeholder="Artist ID"> <input id="al-title" class="in mb-2" placeholder="Title"> <select id="al-type" class="in mb-2">
+            <option value="lp">
+              Album (LP)
+            </option>
+            <option value="ep">
+              EP
+            </option>
+            <option value="sessions">
+              Sessions
+            </option>
+          </select> <input id="al-date" class="in mb-2" type="date"> <button id="btn-add-album" class="btn-primary">Add Album</button>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold mb-2">Add Track</h3><input id="t-albumId" class="in mb-2" placeholder="Album ID"> <input id="t-title" class="in mb-2" placeholder="Title"> <input id="t-duration" class="in mb-2" placeholder="Duration 3:33"> 
+          <textarea id="t-lyrics" class="in mb-2" placeholder="Lyrics"></textarea> <input id="t-audio" class="in mb-2" placeholder="Audio URL (mp3)"> <input id="t-tabs" class="in mb-2" placeholder="Guitar tabs URL (pdf)"> <input id="t-video" class="in mb-2" placeholder="YouTube URL"> <button id="btn-add-track" class="btn-primary">Add Track</button>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold mb-2">Add Video</h3><input id="v-artistId" class="in mb-2" placeholder="Artist ID (optional)"> <input id="v-title" class="in mb-2" placeholder="Title"> <input id="v-url" class="in mb-2" placeholder="YouTube URL"> <button id="btn-add-video" class="btn-primary">Add Video</button>
+        </div>
+      </div>
+      <div id="admin-feedback" class="text-sm text-slate-400 mt-3"></div>
+    </section>
+    <section id="view-auth" class="hidden">
+      <h2 class="text-xl font-semibold mb-3">Login / Sign Up</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="font-semibold mb-2">Create Account</h3><input id="su-email" class="in mb-2" type="email" placeholder="Email"> <input id="su-pass" class="in mb-2" type="password" placeholder="Password"> <button id="btn-signup" class="btn-primary">Sign Up</button>
+        </div>
+        <div class="card">
+          <h3 class="font-semibold mb-2">Login</h3><input id="li-email" class="in mb-2" type="email" placeholder="Email"> <input id="li-pass" class="in mb-2" type="password" placeholder="Password"> <button id="btn-login" class="btn-primary">Login</button>
+        </div>
+      </div>
+      <div id="auth-feedback" class="text-sm text-slate-400 mt-3"></div>
+    </section>
+  </main>
+  <footer class="fixed bottom-0 inset-x-0 z-50 border-t border-slate-800 bg-slate-900/90 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
+      <div id="np-info" class="min-w-0">
+        <div id="np-title" class="truncate font-semibold">
+          Nothing playing
+        </div>
+        <div id="np-sub" class="truncate text-sm text-slate-400">
+          —
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="np-prev" class="btn" title="Prev">■</button> <button id="np-play" class="btn" title="Play/Pause">■■</button> <button id="np-next" class="btn" title="Next">■</button>
+      </div>
+      <div class="flex-1">
+        <input id="np-progress" type="range" min="0" max="100" value="0" class="w-full">
+      </div><audio id="audio" preload="metadata"></audio>
+    </div>
+  </footer>
+  <script src="/js/api.js"></script> 
+  <script src="/js/app.js"></script>
+</body>
+</html>
